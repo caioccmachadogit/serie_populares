@@ -154,7 +154,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
                 connection.setDoInput(true);
                 connection.connect();
                 int response = connection.getResponseCode();
-                Log.d("DOWNLOAD IMG=====", "The response is: " + response);
+                Log.d("DOWNLOAD IMG==", "The response is: " + response);
                 InputStream input = connection.getInputStream();
                 Bitmap myBitmap = BitmapFactory.decodeStream(input);
                 return myBitmap;
