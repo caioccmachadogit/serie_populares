@@ -2,112 +2,94 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="325fe88b774b6ce264fd9d21a5d5c641f3bfe3a6">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_c6324ec4b88a8c500da071e9d00dedd4da2fbbd2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_453fe17c669d107b61cc5beef79b3772d8320651\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="82ce13fd19cdfde0e392f03c27edeba8d4333648">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.3.0_a2097c929d3a56d8e8c956ed817492fdbddbccf1\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_a4ea006b60a31b1ef1f45205b3aa598eb0850127\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_ab3aac0e3ea254a19a3640e8f189956f998b99f6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="debf30ce0a7560396b6235edef77e447006454c2">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.3.0_16b0d541686400ef5b2a29403fd646f27dbb9652\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.2"
         sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_e62e2203e113ce33f70289aef5777d21c6676f9e\classes.dex" />
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.3.0_99d8743d07989f8dcf8aff88a5909ec712eac8eb.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.2"
-        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_598dd5797bfb7045055e141b1b138bf126e567a4\classes.dex" />
+        sha1="82ce13fd19cdfde0e392f03c27edeba8d4333648">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.3.0_70a33a73f9655c2e62da16cdf3e040737cb68eb2.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.3.0_36f8c8e51b48c9c00914149de2e194cef811b7fe.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/Santander/Downloads/Android Studio 2.app/Contents/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.2"
         sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.2.4_313aff129984a0a45e086871ec03bfcc02e7284e\classes.dex" />
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/gson-2.2.4_1fa117da651282d857e2466cd00955ab2c84da09.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.2"
-        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_73fe4cc3026207cf46d973298e3dce53713863bb\classes.dex" />
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.3.0_b131d38f27f5f2bef5e5d7fbc7af4fd765123d18.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/Arquivos/ANDROID_INSTALL/SDK/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/support-annotations-23.3.0_bbbacca6eecee502335344955ac61758e359400c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/internal_impl-23.3.0_a3587829010fcedb149e0e8490a3b23bc5155f05.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.2"
         sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_dc66d72adf49343f93e61b810b0dcaf0afa53ccf\classes.dex" />
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.3.0_7b99f73d46e10d4f3d86e6204d3ce8d2210158ac.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.2"
-        sha1="1457a555e5628c0492e1bbd7935895615a5f3120">
-        <dex dex="C:\Users\RE032629\AndroidStudioProjects\SeriesPopularesApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_37743f559c5b2b076a0022e682ffb4d6e0d9c4b9\classes.dex" />
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.3.0_9e23a76342943ef71f5e9b296f75c13bc066fa17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/Users/Santander/Desktop/appSeries/serie_populares/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.3.0_e201690d2a921d88977dbce6824822f7eb93de74.jar" />
     </item>
 
 </items>

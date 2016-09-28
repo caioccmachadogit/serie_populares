@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/mainContainer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -54,30 +55,10 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:paddingBottom="@dimen/activity_horizontal_margin"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:src="@drawable/ic_estrela_vazio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/img_favoritos" />
-
-                    <TextView
-                        android:layout_marginLeft="@dimen/card_margin"
-                        android:id="@+id/txt_favorito"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Favorita"/>
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_overview"
@@ -191,10 +172,23 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatButton_compartilhar"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:src="@drawable/ic_compartilhar"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatButton_favoritos"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="80dp"
+        android:src="@drawable/ic_estrela"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end" />
 </android.support.design.widget.CoordinatorLayout>
