@@ -1,12 +1,13 @@
 package android.test.seriespopularesapp.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by re032629 on 25/09/2016.
  */
 
-public class Series {
+public class Series implements Serializable {
     private String title;
 
     private String year;
@@ -20,6 +21,16 @@ public class Series {
     private List<String> genres;
 
     private Images images;
+
+    private String aired_episodes;
+
+    public String getAired_episodes() {
+        return aired_episodes;
+    }
+
+    public void setAired_episodes(String aired_episodes) {
+        this.aired_episodes = aired_episodes;
+    }
 
     public Images getImages() {
         return images;

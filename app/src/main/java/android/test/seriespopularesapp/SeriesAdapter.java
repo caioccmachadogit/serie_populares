@@ -3,12 +3,14 @@ package android.test.seriespopularesapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.test.seriespopularesapp.model.Series;
+import android.test.seriespopularesapp.task.ImageLoadTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -90,7 +92,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
         PopupMenu popup = new PopupMenu(activity, holder.overflow);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_serie, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(holder));
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(activity, holder));
         popup.show();
     }
 
@@ -100,9 +102,11 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
         MyViewHolder holderSelected;
+        Activity activity;
 
-        public MyMenuItemClickListener(MyViewHolder holderSelected) {
+        public MyMenuItemClickListener(Activity activity, MyViewHolder holderSelected) {
             this.holderSelected = holderSelected;
+            this.activity = activity;
         }
 
         @Override
@@ -112,7 +116,9 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
                     Toast.makeText(activity, "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_detalhes:
-                    Toast.makeText(activity, holderSelected.serie.getTitle(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(activity.getApplicationContext(), DetalhesActivity.class);
+                    i.putExtra("SERIE_DETALHE", holderSelected.serie);
+                    activity.startActivity(i);
                     return true;
                 default:
             }
@@ -125,58 +131,4 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
         return seriesList.size();
     }
 
-
-
-    public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
-
-        private String url;
-        private ImageView imageView;
-        private ProgressDialog pd;
-        private Activity activity;
-
-        public ImageLoadTask(Activity activity, String url, ImageView imageView) {
-            this.url = url;
-            this.imageView = imageView;
-            this.activity = activity;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            //---Inicia a espera do progresso---
-            pd = ProgressDialog.show(activity, "Buscando Series", "Carregando...");
-        }
-
-        @Override
-        protected Bitmap doInBackground(Void... params) {
-            try {
-                URL urlConnection = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                int response = connection.getResponseCode();
-                Log.d("DOWNLOAD IMG==", "The response is: " + response);
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                return myBitmap;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            super.onPostExecute(result);
-            if(result != null)
-                imageView.setImageBitmap(result);
-
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            this.pd.dismiss();
-        }
-
-    }
 }
