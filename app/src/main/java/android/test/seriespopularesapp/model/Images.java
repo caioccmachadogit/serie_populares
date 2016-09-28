@@ -1,10 +1,12 @@
 package android.test.seriespopularesapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by re032629 on 25/09/2016.
  */
 
-public class Images {
+public class Images implements Serializable{
 
     private ImageSize banner;
 
