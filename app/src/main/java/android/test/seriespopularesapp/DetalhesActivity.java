@@ -178,13 +178,13 @@ public class DetalhesActivity extends PrintScreenUtil {
                 try {
                     if(favoritoRepository.readByIdSerie(serieDetalhe.getIds().getTrakt())!= null){
                         if(favoritoRepository.deleteByIdSerie(serieDetalhe.getIds().getTrakt()) > 0){
-                            Toast.makeText(getApplication(), "Removido dos favoritos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), mActivity.getApplicationContext().getString(R.string.del_favorito), Toast.LENGTH_SHORT).show();
                             floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela_vazio);
                         }
                     }
                     else
                         if(favoritoRepository.insert(favorito) > 0){
-                            Toast.makeText(getApplication(), "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), mActivity.getApplicationContext().getString(R.string.add_favorito), Toast.LENGTH_SHORT).show();
                             floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
                         }
                 }

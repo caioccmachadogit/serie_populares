@@ -3,6 +3,8 @@
     <string name="action_add_favoritos">Add Favoritos</string>
     <string name="action_detalhes">Detalhes</string>
     <string name="msg_erro_request">Servidor indisponível, tente novamente mais tarde.</string>
+    <string name="add_favorito">Adicionado aos favoritos</string>
+    <string name="del_favorito">Removido dos favoritos</string>
     <string name="label_nota">Nota:</string>
     <string name="label_estreia">Ano estreia:</string>
     <string name="label_generos">Gêneros:</string>
