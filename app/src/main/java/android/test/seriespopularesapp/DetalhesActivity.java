@@ -9,17 +9,15 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.test.seriespopularesapp.model.Favorito;
-import android.test.seriespopularesapp.model.ItemComprovante;
 import android.test.seriespopularesapp.model.Series;
 import android.test.seriespopularesapp.repository.FavoritoRepository;
 import android.test.seriespopularesapp.task.ImageLoadTask;
 import android.test.seriespopularesapp.util.share.CompartilharUtil;
 import android.test.seriespopularesapp.util.share.PrintScreenUtil;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +35,12 @@ public class DetalhesActivity extends PrintScreenUtil {
     private TextView tvNota;
     private TextView tvEpisodios;
     private ImageView imgBanner;
+    private ImageView imgBannerCompartilhar;
+    private TextView tvTituloCompartilhar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private FloatingActionButton floatingActionButtonFavoritos;
     private FloatingActionButton floatingActionButtonCompartilhar;
+    NestedScrollView nestedScrollView;
     private Activity mActivity;
     private FavoritoRepository favoritoRepository = new FavoritoRepository(this);
 
@@ -56,88 +57,11 @@ public class DetalhesActivity extends PrintScreenUtil {
         verificaFavorito();
     }
 
-    private void verificaFavorito() {
-        try {
-            if(favoritoRepository.readByIdSerie(serieDetalhe.getIds().getTrakt()) != null)
-                floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
-            else
-                floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela_vazio);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void compartilhar() {
-
-        LinearLayout linearLayoutContainer = new LinearLayout(mActivity);
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(120, 120);
-        linearLayoutContainer.setLayoutParams(linearLayoutParams);
-        linearLayoutContainer.setOrientation(LinearLayout.VERTICAL);
-        linearLayoutContainer.setPadding(0, 15, 0, 0);
-        linearLayoutContainer.setBackgroundColor(getColor(R.color.viewBg));
-
-        ItemComprovante itemComprovanteOrverview = new ItemComprovante("Resumo", serieDetalhe.getOverview());
-        linearLayoutContainer.addView(montarItemComprovante(itemComprovanteOrverview));
-
-        ItemComprovante itemComprovanteTitulo = new ItemComprovante("Titulo", serieDetalhe.getTitle());
-        linearLayoutContainer.addView(montarItemComprovante(itemComprovanteTitulo));
-
-
-        String namePrint = this.SavePrintScreen(linearLayoutContainer);
-        CompartilharUtil.CompartilharPrintScreen(this, namePrint);
-    }
-
-    private void criarViewCompartilhavel() {
-        LinearLayout linearLayoutMainContainer = new LinearLayout(getApplicationContext());
-
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-        linearLayout.setLayoutParams(linearLayoutParams);
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        TextView textViewLabel = new TextView(getApplicationContext());
-        textViewLabel.setLayoutParams(params);
-        textViewLabel.setText(tvOverview.getText().toString());
-
-        linearLayout.addView(textViewLabel);
-
-
-
-    }
-
-    private LinearLayout montarItemComprovante(ItemComprovante itemComprovante) {
-
-        LinearLayout linearLayout = new LinearLayout(mActivity);
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        linearLayout.setLayoutParams(linearLayoutParams);
-
-
-//        if(itemList.isAnotherLine()){
-//            linearLayout.setOrientation(LinearLayout.VERTICAL);
-//            linearLayout.setPadding(0, 15, 0, 0);
-//        }
-//        else {
-//            linearLayout.setPadding(5, 15, 0, 0);
-//            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-//        }
-
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setPadding(0, 15, 0, 0);
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        TextView textViewLabel = new TextView(mActivity);
-        textViewLabel.setLayoutParams(params);
-        textViewLabel.setText(itemComprovante.getLabel());
-
-        TextView textViewValue = new TextView(mActivity);
-        textViewValue.setPadding(10, 0, 0, 0);
-        textViewValue.setLayoutParams(params);
-        textViewValue.setText(itemComprovante.getValue());
-
-        linearLayout.addView(textViewLabel);
-        linearLayout.addView(textViewValue);
-
-        return linearLayout;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvTituloCompartilhar.setVisibility(View.GONE);
+        imgBannerCompartilhar.setVisibility(View.GONE);
     }
 
     private void init() {
@@ -147,6 +71,8 @@ public class DetalhesActivity extends PrintScreenUtil {
         tvNota = (TextView) findViewById(R.id.txt_nota);
         tvEpisodios = (TextView) findViewById(R.id.txt_episodios);
         imgBanner = (ImageView) findViewById(R.id.img_banner);
+        imgBannerCompartilhar = (ImageView) findViewById(R.id.img_banner_compartilhar);
+        tvTituloCompartilhar = (TextView) findViewById(R.id.txt_titulo_compartilhar);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         floatingActionButtonCompartilhar = (FloatingActionButton) findViewById(R.id.floatButton_compartilhar);
         floatingActionButtonCompartilhar.setOnClickListener(new View.OnClickListener() {
@@ -183,16 +109,17 @@ public class DetalhesActivity extends PrintScreenUtil {
                         }
                     }
                     else
-                        if(favoritoRepository.insert(favorito) > 0){
-                            Toast.makeText(getApplication(), mActivity.getApplicationContext().getString(R.string.add_favorito), Toast.LENGTH_SHORT).show();
-                            floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
-                        }
+                    if(favoritoRepository.insert(favorito) > 0){
+                        Toast.makeText(getApplication(), mActivity.getApplicationContext().getString(R.string.add_favorito), Toast.LENGTH_SHORT).show();
+                        floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
+                    }
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+        nestedScrollView = (NestedScrollView) findViewById(R.id.mainContainer);
 
 
         collapsingToolbarLayout.setTitle(serieDetalhe.getTitle());
@@ -210,6 +137,28 @@ public class DetalhesActivity extends PrintScreenUtil {
         tvEpisodios.setText(serieDetalhe.getAired_episodes());
 
         new ImageLoadTask(this, serieDetalhe.getImages().getBanner().getFull(),imgBanner).execute();
+    }
+
+    private void verificaFavorito() {
+        try {
+            if(favoritoRepository.readByIdSerie(serieDetalhe.getIds().getTrakt()) != null)
+                floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
+            else
+                floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela_vazio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void compartilhar() {
+
+        tvTituloCompartilhar.setVisibility(View.VISIBLE);
+        tvTituloCompartilhar.setText(serieDetalhe.getTitle());
+        imgBannerCompartilhar.setVisibility(View.VISIBLE);
+        imgBannerCompartilhar.setImageDrawable(imgBanner.getDrawable());
+
+        String namePrint = this.SavePrintScreen(nestedScrollView);
+        CompartilharUtil.CompartilharPrintScreen(this, namePrint);
     }
 
     @Override
