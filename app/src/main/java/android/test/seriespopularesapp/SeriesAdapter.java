@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.test.seriespopularesapp.model.Favorito;
 import android.test.seriespopularesapp.model.Series;
+import android.test.seriespopularesapp.repository.FavoritoRepository;
 import android.test.seriespopularesapp.task.ImageLoadTask;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -25,10 +27,11 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
 
     private Activity activity;
     private List<Series> seriesList;
+    private FavoritoRepository favoritoRepository;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView titulo, nota, estreia;
-        public ImageView thumbnail, overflow;
+        public ImageView thumbnail, overflow, favorito;
         public Series serie;
 
         public MyViewHolder(View view) {
@@ -38,6 +41,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
             estreia = (TextView) view.findViewById(R.id.estreia);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
+            favorito = (ImageView) view.findViewById(R.id.img_favorito);
         }
     }
 
@@ -45,6 +49,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
     public SeriesAdapter(Activity activity, List<Series> seriesList) {
         this.activity = activity;
         this.seriesList = seriesList;
+        favoritoRepository = new FavoritoRepository(activity);
     }
 
     @Override
@@ -59,20 +64,32 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Series series = seriesList.get(position);
 
-            holder.titulo.setText(series.getTitle());
-            holder.nota.setText("Nota: "+series.getRating().substring(0,4));
-            holder.estreia.setText("Ano estreia: "+series.getYear());
-            holder.serie = series;
+        holder.titulo.setText(series.getTitle());
+        holder.nota.setText("Nota: "+series.getRating().substring(0,4));
+        holder.estreia.setText("Ano estreia: "+series.getYear());
+        holder.serie = series;
+        verificaFavorito(holder);
 
-            if(series.getImages().getThumb().getFull() != null && !series.getImages().getThumb().getFull().isEmpty())
-                new ImageLoadTask(activity, series.getImages().getThumb().getFull(),holder.thumbnail).execute();
+        if(series.getImages().getThumb().getFull() != null && !series.getImages().getThumb().getFull().isEmpty())
+            new ImageLoadTask(activity, series.getImages().getThumb().getFull(),holder.thumbnail).execute();
 
-            holder.overflow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPopupMenu(holder);
-                }
-            });
+        holder.overflow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(holder);
+            }
+        });
+    }
+
+    private void verificaFavorito(MyViewHolder holder) {
+        try {
+            if(favoritoRepository.readByIdSerie(holder.serie.getIds().getTrakt()) != null)
+                holder.favorito.setVisibility(View.VISIBLE);
+            else
+                holder.favorito.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -104,7 +121,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favotitos:
-                    Toast.makeText(activity, "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
+                    verificaFavorito();
                     return true;
                 case R.id.action_detalhes:
                     Intent i = new Intent(activity.getApplicationContext(), DetalhesActivity.class);
@@ -114,6 +131,27 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
                 default:
             }
             return false;
+        }
+
+        private void verificaFavorito() {
+            Favorito favorito = new Favorito();
+            favorito.setIdSerie(holderSelected.serie.getIds().getTrakt());
+            try {
+                if(favoritoRepository.readByIdSerie(holderSelected.serie.getIds().getTrakt())!= null){
+                    if(favoritoRepository.deleteByIdSerie(holderSelected.serie.getIds().getTrakt()) > 0){
+                        Toast.makeText(activity, "Removido dos favoritos", Toast.LENGTH_SHORT).show();
+                        holderSelected.favorito.setVisibility(View.GONE);
+                    }
+                }
+                else
+                    if(favoritoRepository.insert(favorito) > 0){
+                        Toast.makeText(activity, "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
+                        holderSelected.favorito.setVisibility(View.VISIBLE);
+                    }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

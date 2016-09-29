@@ -24,6 +24,16 @@ public class Series implements Serializable {
 
     private String aired_episodes;
 
+    private Ids ids;
+
+    public Ids getIds() {
+        return ids;
+    }
+
+    public void setIds(Ids ids) {
+        this.ids = ids;
+    }
+
     public String getAired_episodes() {
         return aired_episodes;
     }

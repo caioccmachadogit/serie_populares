@@ -58,6 +58,16 @@
                 android:textSize="@dimen/songs_count" />
 
             <ImageView
+                android:id="@+id/img_favorito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/estreia"
+                android:src="@drawable/ic_estrela"
+                android:paddingBottom="@dimen/songs_count_padding_bottom"
+                android:paddingLeft="@dimen/serie_title_padding"
+                android:paddingRight="@dimen/serie_title_padding" />
+
+            <ImageView
                 android:id="@+id/overflow"
                 android:layout_width="@dimen/ic_serie_overflow_width"
                 android:layout_height="@dimen/ic_serie_overflow_height"

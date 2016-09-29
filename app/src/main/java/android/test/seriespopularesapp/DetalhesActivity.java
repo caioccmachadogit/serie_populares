@@ -9,11 +9,13 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.test.seriespopularesapp.model.Favorito;
 import android.test.seriespopularesapp.model.ItemComprovante;
 import android.test.seriespopularesapp.model.Series;
+import android.test.seriespopularesapp.repository.FavoritoRepository;
 import android.test.seriespopularesapp.task.ImageLoadTask;
-import android.test.seriespopularesapp.util.CompartilharUtil;
-import android.test.seriespopularesapp.util.PrintScreenUtil;
+import android.test.seriespopularesapp.util.share.CompartilharUtil;
+import android.test.seriespopularesapp.util.share.PrintScreenUtil;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,6 +41,7 @@ public class DetalhesActivity extends PrintScreenUtil {
     private FloatingActionButton floatingActionButtonFavoritos;
     private FloatingActionButton floatingActionButtonCompartilhar;
     private Activity mActivity;
+    private FavoritoRepository favoritoRepository = new FavoritoRepository(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,19 @@ public class DetalhesActivity extends PrintScreenUtil {
         serieDetalhe = (Series) getIntent().getSerializableExtra("SERIE_DETALHE");
 
         init();
+
+        verificaFavorito();
+    }
+
+    private void verificaFavorito() {
+        try {
+            if(favoritoRepository.readByIdSerie(serieDetalhe.getIds().getTrakt()) != null)
+                floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
+            else
+                floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela_vazio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void compartilhar() {
@@ -157,7 +173,24 @@ public class DetalhesActivity extends PrintScreenUtil {
         floatingActionButtonFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplication(), "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
+                Favorito favorito = new Favorito();
+                favorito.setIdSerie(serieDetalhe.getIds().getTrakt());
+                try {
+                    if(favoritoRepository.readByIdSerie(serieDetalhe.getIds().getTrakt())!= null){
+                        if(favoritoRepository.deleteByIdSerie(serieDetalhe.getIds().getTrakt()) > 0){
+                            Toast.makeText(getApplication(), "Removido dos favoritos", Toast.LENGTH_SHORT).show();
+                            floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela_vazio);
+                        }
+                    }
+                    else
+                        if(favoritoRepository.insert(favorito) > 0){
+                            Toast.makeText(getApplication(), "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
+                            floatingActionButtonFavoritos.setImageResource(R.drawable.ic_estrela);
+                        }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

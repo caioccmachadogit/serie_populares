@@ -1,17 +1,24 @@
 package android.test.seriespopularesapp;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.test.seriespopularesapp.model.Series;
-import android.test.seriespopularesapp.util.JsonUtil;
+import android.test.seriespopularesapp.repository.FavoritoRepository;
+import android.test.seriespopularesapp.util.db.GerenciadorDB;
+import android.test.seriespopularesapp.util.json.JsonUtil;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -29,15 +36,72 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SeriesAdapter adapter;
+    private final int  MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    private Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        mActivity = this;
+        verificaPermissao();
+    }
+
+    private void verificaPermissao() {
+        if (Build.VERSION.SDK_INT >= 23) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(mActivity,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                    }
+                    else
+                        init();
+                }
+                else
+                    init();
+    }
+
+    private void init(){
+        criaDB();
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         new BuscarSeriesPopulares(this).execute("https://api.trakt.tv/shows/popular?extended=full,images");
+    }
+
+    private void criaDB() {
+        /*----------------------------------------------------------------------------------------------------------------------------------------*/
+        // **** CARREGA UM ARRAY DE QUERYS PARA EXECU��O NO MOMENTO DE CRIA��O DO BANCO DE DADOS
+        GerenciadorDB.QUERY_CREATE_BANCO_DE_DADOS.add(FavoritoRepository.createTable);
+        // **** CRIA DIR EXTERNO E BANCO DE DADOS
+        GerenciadorDB ger = new GerenciadorDB();
+        ger.criarDB(MainActivity.this);
+        /*----------------------------------------------------------------------------------------------------------------------------------------*/
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    init();
+                }
+                else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     /**
